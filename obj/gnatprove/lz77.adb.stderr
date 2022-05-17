@@ -1,0 +1,7 @@
+lz77.ads:94:21: warning: unused variable "Input"[#4]
+lz77.ads:94:45: warning: "Output" is not modified, could be IN[#2]
+lz77.ads:94:45: warning: unused variable "Output"[#3]
+lz77.ads:101:68: medium: postcondition might fail, cannot prove not Valid(Input,Input'last) (e.g. when Input = (others => (Offset => 0, Length => 0, Next_C => 'NUL')) and Input'First = 1 and Input'Last = 0)[#5]
+lz77.ads:113:50: warning: "Output" is not modified, could be IN[#0]
+lz77.ads:113:50: warning: unused variable "Output"[#1]
+lz77.ads:116:14: medium: postcondition might fail, cannot prove Output_Length = To_Integer(Decoded_Length(Input)) (e.g. when Input = (1 => (Offset => 0, Length => 0, Next_C => 'NUL'), others => (Offset => 0, Length => 0, Next_C => 'NUL')) and Input'First = 1 and Input'Last = 1 and Output_Length = 0)[#6]

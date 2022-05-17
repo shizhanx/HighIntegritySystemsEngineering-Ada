@@ -1,0 +1,7 @@
+20220510092112
+-c
+-x
+ada
+-gnatA
+-gnatc
+-gnates=C:\My\GNAT\UniMelb2022\assignment3\obj\gnatprove\85a74aac.tmp
