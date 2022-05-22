@@ -2,9 +2,9 @@ with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
 
 -- Submission authored by:
--- <INSERT YOUR NAMES HERE>
+-- Shizhan Xu 771900 Kevin Jin Po Yong 901015
 
--- This file requires Proof Level to be set to: <INSERT HERE>
+-- This file requires Proof Level to be set to: 1
 
 package body LZ77 with SPARK_Mode is
 
@@ -48,7 +48,7 @@ package body LZ77 with SPARK_Mode is
    function Is_Valid(Input : in Token_Array) return Boolean is
    begin
       -- IMPLEMENT THIS      
-      return False;
+      return True;
    end Is_Valid;
    
    procedure Decode_Fast(Input : in Token_Array; Output : in out Byte_Array;
@@ -57,6 +57,18 @@ package body LZ77 with SPARK_Mode is
    begin
       -- IMPLEMENT THIS            
       Output_Length := 0;
+      -- Output_Length always points to the last char's position
+      -- Loop all tokens and insert chars to the Output_Length position
+      for Index in Input'Range loop 
+         -- For each token loop Length times to put the previous offset char
+         for TokenIndex in 1 .. Input(Index).Length loop
+            Output_Length := Output_Length + 1;
+            Output(Output_Length) := Output(Output_Length - Input(Index).Offset);
+         end loop;
+         -- Finally add the last char of that token.
+         Output_Length := Output_Length + 1;
+         Output(Output_Length) := Input(Index).Next_C;
+      end loop;
    end Decode_Fast;
 
 end LZ77;
