@@ -40,15 +40,38 @@ package body LZ77 with SPARK_Mode is
                     Output_Length : out Natural; Error : out Boolean)
    is
    begin
-      -- IMPLEMENT THIS
+      -- IMPLEMENT THIS            
       Output_Length := 0;
-      Error := True;
+      Error := False;
+      -- Output_Length always points to the last char's position
+      -- Loop all tokens and insert chars to the Output_Length position
+      for Index in Input'Range loop 
+         -- For each token loop Length times to put the previous offset char
+         for TokenIndex in 1 .. Input(Index).Length loop
+            if Output_Length = Output'Last or 
+              Output_Length - Input(Index).Offset + 1 < Output'First
+            then 
+               Error := True;
+               exit;
+            end if;
+            Output_Length := Output_Length + 1;
+            Output(Output_Length) := Output(Output_Length - Input(Index).Offset);
+         end loop;
+         -- Finally add the last char of that token.
+         if Output_Length = Output'Last then 
+            Error := True;
+            exit;
+         end if;
+         Output_Length := Output_Length + 1;
+         Output(Output_Length) := Input(Index).Next_C;
+      end loop;
+      if Error = True then Output_Length := 0; end if;
    end Decode;
    
    function Is_Valid(Input : in Token_Array) return Boolean is
    begin
       -- IMPLEMENT THIS      
-      return True;
+      return False;
    end Is_Valid;
    
    procedure Decode_Fast(Input : in Token_Array; Output : in out Byte_Array;
