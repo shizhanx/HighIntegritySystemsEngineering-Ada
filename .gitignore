@@ -4,5 +4,7 @@
 # Ada Library Information
 *.ali
 
+main.adb
+
 obj/
 proof/

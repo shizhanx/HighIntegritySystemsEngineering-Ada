@@ -36,6 +36,15 @@ package body LZ77 with SPARK_Mode is
       Put("Next_C: "); Put(T.Next_C); New_Line;
    end Put;
 
+   -- Task3.1: 
+   -- The side effects of this procedure is determined, as we only pass
+   -- Input as in, it will never get changed here. Likewise, this procedure
+   -- is guaranteed to work regardless of what Output_Length and Error are
+   -- initially. Also no null-pointer stuff here for we don't use pointers.
+   -- On the other hand, Ada provides guarantee for run-time errors like 
+   -- those overflow problems. If I could run this program without warnings
+   -- from the compiler, I can confirm that this piece of code won't harm
+   -- my overall system security. This is impossible for other languages like C.
    procedure Decode(Input : in Token_Array; Output : in out Byte_Array;
                     Output_Length : out Natural; Error : out Boolean)
    is
