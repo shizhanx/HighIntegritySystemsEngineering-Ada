@@ -36,7 +36,7 @@ package body LZ77 with SPARK_Mode is
       Put("Next_C: "); Put(T.Next_C); New_Line;
    end Put;
 
-   -- Task3.1: 
+   -- Task 3.1: 
    -- The side effects of this procedure is determined, as we only pass
    -- Input as in, it will never get changed here. Likewise, this procedure
    -- is guaranteed to work regardless of what Output_Length and Error are
@@ -45,6 +45,8 @@ package body LZ77 with SPARK_Mode is
    -- those overflow problems. If I could run this program without warnings
    -- from the compiler, I can confirm that this piece of code won't harm
    -- my overall system security. This is impossible for other languages like C.
+   -- Task 3.2:
+   --
    procedure Decode(Input : in Token_Array; Output : in out Byte_Array;
                     Output_Length : out Natural; Error : out Boolean)
    is
@@ -78,9 +80,17 @@ package body LZ77 with SPARK_Mode is
    end Decode;
    
    function Is_Valid(Input : in Token_Array) return Boolean is
+      TotalLength: Integer := 0;
    begin
       -- IMPLEMENT THIS      
-      return False;
+      for Index in Input'Range loop
+         pragma Loop_Invariant (Integer'Last - 1 - Input(Index).Length < TotalLength);
+         if (Input(Index).Offset > TotalLength) 
+         then return False;
+         end if;
+         TotalLength := TotalLength + Input(Index).Length + 1;
+      end loop;
+      return True;
    end Is_Valid;
    
    procedure Decode_Fast(Input : in Token_Array; Output : in out Byte_Array;
