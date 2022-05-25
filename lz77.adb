@@ -118,13 +118,11 @@ package body LZ77 with SPARK_Mode is
       else
          for Index in Input'Range loop
             pragma Loop_Invariant(TotalLength = (if Index <= Input'First then 0 else To_Integer(Length_Acc(Input)(Index - 1)))
-                                 and then (if (Input(Index).Offset > TotalLength or
-                                      TotalLength >= Integer'Last - Input(Index).Length -1) 
-                                    then Valid(Input, Index) = False
-                                   else Valid(Input, Index)));
+                                 and (if Index > Input'First then Valid(Input, Index - 1)));
             if (Input(Index).Offset > TotalLength or
-                  TotalLength >= Integer'Last - Input(Index).Length -1) 
+                  TotalLength > Integer'Last - Input(Index).Length -1) 
             then 
+               pragma Assert(not Valid(Input, Index));
                return False;
             else
                TotalLength := TotalLength + Input(Index).Length + 1;
