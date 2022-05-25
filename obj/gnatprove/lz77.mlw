@@ -8543,8 +8543,8 @@ module Lz77__decode__subprogram_def
                with
                 Temp___exception_383 -> ( ();
                 ( [@GP_Sloc:lz77.adb:68:22] ([#"lz77.adb" 68 0 0] [#"lz77.adb" 68 0 0] (Lz77__decode__error.error.bool__content <- ( (Boolean.of_int((1 : int))) ))) );
-                ( [@GP_Sloc:lz77.adb:69:33] ([#"lz77.adb" 69 0 0] [#"lz77.adb" 69 0 0] (Lz77__decode__output_length.output_length.int__content <- ( (0 : int) ))) );
-                ( [@GP_Sloc:lz77.adb:70:19] ([#"lz77.adb" 70 0 0] [#"lz77.adb" 70 0 0] raise Lz77__decode__L_3.L_3) ) )
+                ( [@GP_Sloc:lz77.adb:69:30] ([#"lz77.adb" 69 0 0] [#"lz77.adb" 69 0 0] (Lz77__decode__output_length.output_length.int__content <- ( (0 : int) ))) );
+                ( [@GP_Sloc:lz77.adb:70:16] ([#"lz77.adb" 70 0 0] [#"lz77.adb" 70 0 0] raise Lz77__decode__L_3.L_3) ) )
                end
               with
                Lz77__decode__L_3.L_3 -> ()
