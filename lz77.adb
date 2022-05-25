@@ -85,16 +85,24 @@ package body LZ77 with SPARK_Mode is
       TotalLength: Natural := 0;
    begin
       -- IMPLEMENT THIS      
-      for Index in Input'Range loop
-         pragma Loop_Invariant (Index <= Input'Last);
-         if (Input(Index).Offset > TotalLength or
-            TotalLength >= Integer'Last - Input(Index).Length -1) 
-         then return False;
-         else
-            TotalLength := TotalLength + Input(Index).Length + 1;
-         end if;
-      end loop;
-      return True;
+      if(Input'Last < Input'First) then return True;
+      else
+         for Index in Input'Range loop
+            pragma Loop_Invariant(TotalLength = (if Index <= Input'First then 0 else To_Integer(Length_Acc(Input)(Index - 1)))
+                                 and then (if (Input(Index).Offset > TotalLength or
+                                      TotalLength >= Integer'Last - Input(Index).Length -1) 
+                                    then Valid(Input, Index) = False
+                                   else Valid(Input, Index)));
+            if (Input(Index).Offset > TotalLength or
+                  TotalLength >= Integer'Last - Input(Index).Length -1) 
+            then 
+               return False;
+            else
+               TotalLength := TotalLength + Input(Index).Length + 1;
+            end if;
+         end loop;
+         return True;
+      end if;
    end Is_Valid;
    
    procedure Decode_Fast(Input : in Token_Array; Output : in out Byte_Array;
