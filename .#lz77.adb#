@@ -66,15 +66,15 @@ package body LZ77 with SPARK_Mode is
               Output_Length - Input(Index).Offset + 1 < Output'First or Error
             then 
                Error := True;
-                  Output_Length := 0;
-                  exit;
+               Output_Length := 0;
+               exit;
             else
                Output_Length := Output_Length + 1;
                if Output_Length <= Output'Last then
                   Output(Output_Length) := Output(Output_Length - Input(Index).Offset);
                end if;
-               end if;
             end if;
+          end if;
             
          pragma Loop_Invariant ( if Output_Length < Natural'Last - TokenIndex and not Error then Output_Length = Output_Length'Loop_Entry + TokenIndex); 
          end loop;

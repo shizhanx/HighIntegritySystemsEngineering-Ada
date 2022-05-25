@@ -73,7 +73,7 @@
             "CVC4": {
               "result": "Valid",
               "steps": 16,
-              "time": 5.00000000000000E-02
+              "time": 0
             }
           },
           "transformations": {
@@ -88,7 +88,7 @@
         "CVC4": {
           "count": 1,
           "max_steps": 1,
-          "max_time": 5.00000007450581E-02
+          "max_time": 0.00000000000000E+00
         }
       }
     },
@@ -113,7 +113,7 @@
             "CVC4": {
               "result": "Valid",
               "steps": 21,
-              "time": 6.00000000000000E-02
+              "time": 0
             }
           },
           "transformations": {
@@ -124,7 +124,7 @@
             "CVC4": {
               "result": "Valid",
               "steps": 5,
-              "time": 6.00000000000000E-02
+              "time": 0
             }
           },
           "transformations": {
@@ -139,7 +139,7 @@
         "CVC4": {
           "count": 2,
           "max_steps": 1,
-          "max_time": 5.99999986588955E-02
+          "max_time": 0.00000000000000E+00
         }
       }
     },
@@ -164,7 +164,7 @@
             "CVC4": {
               "result": "Valid",
               "steps": 1555,
-              "time": 1.40000000000000E-01
+              "time": 0
             }
           },
           "transformations": {
@@ -175,7 +175,7 @@
             "CVC4": {
               "result": "Valid",
               "steps": 14,
-              "time": 9.00000000000000E-02
+              "time": 0
             }
           },
           "transformations": {
@@ -190,7 +190,7 @@
         "CVC4": {
           "count": 2,
           "max_steps": 1,
-          "max_time": 1.40000000596046E-01
+          "max_time": 0.00000000000000E+00
         }
       }
     },
@@ -215,7 +215,7 @@
             "CVC4": {
               "result": "Valid",
               "steps": 1586,
-              "time": 1.40000000000000E-01
+              "time": 0
             }
           },
           "transformations": {
@@ -230,7 +230,7 @@
         "CVC4": {
           "count": 1,
           "max_steps": 1,
-          "max_time": 1.40000000596046E-01
+          "max_time": 0.00000000000000E+00
         }
       }
     },
@@ -255,7 +255,7 @@
             "CVC4": {
               "result": "Valid",
               "steps": 17,
-              "time": 1.10000000000000E-01
+              "time": 0
             }
           },
           "transformations": {
@@ -270,7 +270,7 @@
         "CVC4": {
           "count": 1,
           "max_steps": 1,
-          "max_time": 1.09999999403954E-01
+          "max_time": 0.00000000000000E+00
         }
       }
     },
@@ -295,7 +295,7 @@
             "CVC4": {
               "result": "Valid",
               "steps": 21,
-              "time": 8.00000000000000E-02
+              "time": 0
             }
           },
           "transformations": {
@@ -306,7 +306,7 @@
             "CVC4": {
               "result": "Valid",
               "steps": 5,
-              "time": 6.00000000000000E-02
+              "time": 0
             }
           },
           "transformations": {
@@ -321,7 +321,7 @@
         "CVC4": {
           "count": 2,
           "max_steps": 1,
-          "max_time": 7.99999982118607E-02
+          "max_time": 0.00000000000000E+00
         }
       }
     }
@@ -713,14 +713,14 @@
     }
   ],
   "timings": {
-    "marking": 1.17659999523312E-03,
-    "globals (basic)": 2.29321300983429E-01,
-    "globals/properties (advanced)": 1.76929999142885E-02,
-    "flow analysis": 1.76337007433176E-02,
-    "codepeer results": 7.99999997980194E-06,
-    "init_why_sections": 3.47399996826425E-04,
-    "translation of standard": 2.26840004324913E-03,
-    "translation of compilation unit": 4.94294986128807E-02,
-    "proof": 1.37078535556793E+00
+    "marking": 1.53060001321137E-03,
+    "globals (basic)": 1.86736006289721E-02,
+    "globals/properties (advanced)": 2.24473997950554E-02,
+    "flow analysis": 2.54005007445812E-02,
+    "codepeer results": 1.33000003188499E-05,
+    "init_why_sections": 1.22810003813356E-03,
+    "translation of standard": 4.93479985743761E-03,
+    "translation of compilation unit": 6.51163011789322E-02,
+    "proof": 9.42068994045258E-01
   }
 }

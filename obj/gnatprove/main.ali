@@ -25,11 +25,11 @@ D a-ioexce.ads		20190518041254 e4a01f64 ada.io_exceptions%s
 D a-stream.ads		20190518041256 119b8fb3 ada.streams%s
 D a-textio.ads		20190518041256 aef4d56d ada.text_io%s
 D a-tiinio.ads		20190518041254 390edddb ada.text_io.integer_io%s
-D big_integers.ads	20220504134854 a256e9ad big_integers%s
+D big_integers.ads	20220523053702 a256e9ad big_integers%s
 D interfac.ads		20190518041254 5ab55268 interfaces%s
 D i-cstrea.ads		20190518041254 e53d8b8e interfaces.c_streams%s
-D lz77.ads		20220504134622 a65ea79f lz77%s
-D main.adb		20220504134554 c51bb01a main%b
+D lz77.ads		20220523053702 a65ea79f lz77%s
+D main.adb		20220525045540 c51bb01a main%b
 D system.ads		20190518041256 32a08138 system%s
 D s-crtl.ads		20190518041254 0ebbdb71 system.crtl%s
 D s-ficobl.ads		20190518041256 078245e4 system.file_control_block%s
