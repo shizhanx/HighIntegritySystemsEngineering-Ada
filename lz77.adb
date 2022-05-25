@@ -51,44 +51,48 @@ package body LZ77 with SPARK_Mode is
                     Output_Length : out Natural; Error : out Boolean)
    is
    begin
-      -- IMPLEMENT THIS            
+      -- IMPLEMENT THIS
       Output_Length := 0;
       Error := False;
       -- Output_Length always points to the last char's position
       -- Loop all tokens and insert chars to the Output_Length position
       for Index in Input'Range loop 
-         -- For each token loop Length times to put the previous offset char
-         for TokenIndex in 1 .. Input(Index).Length loop
-            if Output_Length = Output'Last or 
-              Output_Length - Input(Index).Offset + 1 < Output'First
-            then 
-               Error := True;
-               exit;
-            end if;
-            Output_Length := Output_Length + 1;
-            Output(Output_Length) := Output(Output_Length - Input(Index).Offset);
-         end loop;
-         -- Finally add the last char of that token.
-         if Output_Length = Output'Last then 
+         if Output_Length >= Output'Last then 
             Error := True;
             exit;
+         else
+            -- For each token loop Length times to put the previous offset char
+            for TokenIndex in 1 .. Input(Index).Length loop
+               if Output_Length >= Output'Last or 
+                 Output_Length - Input(Index).Offset + 1 < Output'First
+               then 
+                  Error := True;
+                  exit;
+               else
+                  Output_Length := Output_Length + 1;
+                  Output(Output_Length) := Output(Output_Length - Input(Index).Offset);
+               end if;
+            end loop;
+            -- Finally add the last char of that token.
+            Output_Length := Output_Length + 1;
+            Output(Output_Length) := Input(Index).Next_C;
          end if;
-         Output_Length := Output_Length + 1;
-         Output(Output_Length) := Input(Index).Next_C;
       end loop;
       if Error = True then Output_Length := 0; end if;
    end Decode;
    
    function Is_Valid(Input : in Token_Array) return Boolean is
-      TotalLength: Integer := 0;
+      TotalLength: Natural := 0;
    begin
       -- IMPLEMENT THIS      
       for Index in Input'Range loop
-         pragma Loop_Invariant (Integer'Last - 1 - Input(Index).Length < TotalLength);
-         if (Input(Index).Offset > TotalLength) 
+         pragma Loop_Invariant (Index <= Input'Last);
+         if (Input(Index).Offset > TotalLength or
+            TotalLength >= Integer'Last - Input(Index).Length -1) 
          then return False;
+         else
+            TotalLength := TotalLength + Input(Index).Length + 1;
          end if;
-         TotalLength := TotalLength + Input(Index).Length + 1;
       end loop;
       return True;
    end Is_Valid;
@@ -97,11 +101,12 @@ package body LZ77 with SPARK_Mode is
                          Output_Length : out Natural)
    is
    begin
-      -- IMPLEMENT THIS            
+      -- IMPLEMENT THIS           
       Output_Length := 0;
       -- Output_Length always points to the last char's position
       -- Loop all tokens and insert chars to the Output_Length position
       for Index in Input'Range loop 
+         pragma Loop_Invariant(Output_Length + Input(Index).Length + 1 = To_Integer(Length_Acc(Input)(Index)));
          -- For each token loop Length times to put the previous offset char
          for TokenIndex in 1 .. Input(Index).Length loop
             Output_Length := Output_Length + 1;
