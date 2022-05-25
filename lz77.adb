@@ -56,25 +56,40 @@ package body LZ77 with SPARK_Mode is
       Error := False;
       -- Output_Length always points to the last char's position
       -- Loop all tokens and insert chars to the Output_Length position
-      for Index in Input'Range loop 
+      for Index in Input'Range loop
+         pragma Loop_Invariant (if Error then Output_Length = 0 else True);
          -- For each token loop Length times to put the previous offset char
          for TokenIndex in 1 .. Input(Index).Length loop
-            if Output_Length = Output'Last or 
-              Output_Length - Input(Index).Offset + 1 < Output'First
-            then 
-               Error := True;
-               exit;
+            if Output_Length < Natural'Last - 1  then
+               if Output_Length = Output'Last or 
+                 Output_Length - Input(Index).Offset + 1 < Output'First or Error
+               then 
+                  Error := True;
+                  Output_Length := 0;
+                  exit;
+               else
+                  Output_Length := Output_Length + 1;
+                  if Output_Length <= Output'Last then
+                     Output(Output_Length) := Output(Output_Length - Input(Index).Offset);
+                  end if;
+               end if;
             end if;
-            Output_Length := Output_Length + 1;
-            Output(Output_Length) := Output(Output_Length - Input(Index).Offset);
+            
+            pragma Loop_Invariant ( if Output_Length < Natural'Last - TokenIndex and not Error 
+                                    then Output_Length = Output_Length'Loop_Entry + TokenIndex); 
          end loop;
          -- Finally add the last char of that token.
-         if Output_Length = Output'Last then 
+         if Output_Length = Output'Last or Error then 
             Error := True;
+            Output_Length := 0;
             exit;
          end if;
-         Output_Length := Output_Length + 1;
-         Output(Output_Length) := Input(Index).Next_C;
+         if Output_Length < Natural'Last - 1  then
+               Output_Length := Output_Length + 1;
+         end if;
+         if Output_Length <= Output'Last and Output_Length >= Output'First  then
+            Output(Output_Length) := Input(Index).Next_C;
+         end if;
       end loop;
       if Error = True then Output_Length := 0; end if;
    end Decode;
