@@ -46,7 +46,11 @@ package body LZ77 with SPARK_Mode is
    -- from the compiler, I can confirm that this piece of code won't harm
    -- my overall system security. This is impossible for other languages like C.
    -- Task 3.2:
-   --
+   -- With spark prove, it guarantee run-time error does not occues. 
+   -- In Decode procedure, it ensure the Output_Length will not 
+   -- have integer overflow
+   -- It also ensure overflow in Array do no occurs when adding char to Output
+   -- array.
    procedure Decode(Input : in Token_Array; Output : in out Byte_Array;
                     Output_Length : out Natural; Error : out Boolean)
    is
@@ -78,33 +82,18 @@ package body LZ77 with SPARK_Mode is
             pragma Loop_Invariant ( if Output_Length < Natural'Last - TokenIndex and not Error 
                                     then Output_Length = Output_Length'Loop_Entry + TokenIndex); 
          end loop;
-         -- Finally add the last char of that token.
+         -- Finally add the last char of that token
          if Output_Length = Output'Last or Error then 
             Error := True;
             Output_Length := 0;
             exit;
          else
-            -- For each token loop Length times to put the previous offset char
-            for TokenIndex in 1 .. Input(Index).Length loop
-               if Output_Length >= Output'Last or 
-                 Output_Length - Input(Index).Offset + 1 < Output'First
-               then 
-                  Error := True;
-                  exit;
-               else
-                  Output_Length := Output_Length + 1;
-                  Output(Output_Length) := Output(Output_Length - Input(Index).Offset);
-               end if;
-            end loop;
-            -- Finally add the last char of that token.
-            Output_Length := Output_Length + 1;
-            Output(Output_Length) := Input(Index).Next_C;
-         end if;
-         if Output_Length < Natural'Last - 1  then
+            if Output_Length < Natural'Last - 1  then
                Output_Length := Output_Length + 1;
-         end if;
-         if Output_Length <= Output'Last and Output_Length >= Output'First  then
-            Output(Output_Length) := Input(Index).Next_C;
+            end if;
+            if Output_Length <= Output'Last and Output_Length >= Output'First  then
+               Output(Output_Length) := Input(Index).Next_C;
+            end if;
          end if;
       end loop;
       if Error = True then Output_Length := 0; end if;
